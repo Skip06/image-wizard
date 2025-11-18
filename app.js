@@ -1,22 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
 dotenv.config();
+
+console.log("JWT_SECRET loaded:", process.env.JWT_SECRET ? "YES" : "NO");
 const app = express();
 app.use(express.json());
-port = 3000;
+
 
 
 app.use("/auth",require("./routes/auth")); // mounting the auth routes
-app.use("/image",require("./routes/images")); //mounting the image routes
+app.use("/images",require("./routes/images")); //mounting the image routes
 
+const PORT = process.env.PORT || 3000;
 
-
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+.connect(process.env.MONGO_URI)
 .then(() => {
     console.log("mongo DB connected")
 })
 .catch((err) => console.log("DB error", err));
 
-app.listen(port, () => console.log(`Server running in port ${port}`));
+app.listen(PORT, () => console.log(`Server running in port ${PORT}`));

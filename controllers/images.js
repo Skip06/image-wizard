@@ -1,6 +1,7 @@
 const multer = require("multer");
 const sharp = require("sharp");  //photoshop of nodejs
 const path = require("path");
+const Image = require("../models/Image");
 
 //const upload = multer({dest: "uploads/"});  //a multer instance autosaves to uploads folder
 
@@ -38,7 +39,7 @@ exports.uploadImage= [upload.single("image"), async(req, res) => {  // accept on
       await image.save();   //store in DB but not the actual image
       res.status(201).json({
         message: "image uploaded",
-        image: newImage
+        image: image
       })
     }
     catch(err){
@@ -71,7 +72,6 @@ exports.transformImage = async (req, res) => {
   const transformations = req.body;
 
   try {
-    const Image = require("../models/Image");
     const original = await Image.findById(id); //goin to MongoDB and find the original pic
 
     if (!original || original.userId.toString() !== req.user.id) {

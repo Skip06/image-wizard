@@ -1,8 +1,9 @@
-const mogoose = require("mongoose");
+const mongoose = require("mongoose");
+const {Schema} = mongoose;
 
 const userSchema = new Schema({
-    username : {type: String, require: true, unique: true},
-    password : {type: String, require: true} //will hash it baadme...
+    username : {type: String, required: true, unique: true},
+    password : {type: String, required: true} //will hash it baadme...
 });
 
 module.exports = mongoose.model("User", userSchema);  //model represents the table in mongoDB database .

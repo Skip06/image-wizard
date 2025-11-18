@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+const {Schema} = mongoose;
 const imageSchema = new Schema({
     userId: {type: Schema.Types.ObjectId, ref: "User"},
     url: String ,     //S3 link or local path
